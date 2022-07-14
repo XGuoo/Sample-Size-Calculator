@@ -8,13 +8,13 @@ An online sample was provided [here](https://power-app2.web.app/).
 
 Currently this APP provides two types of calculations which are "Estimate accuracy of a single test" and " Compare two values of accuracy".
 
-![](src\assets\markdownfig\select_button1.png)
+![](src/assets/markdownfig/select_button1.png)
 
 ### Estimate accuracy of a single test
 
 Under the "Estimate accuracy of a single test", you can chose different types of input to estimate the sample size that you needed.
 
-![](src\assets\markdownfig\modeselsc.png)
+![](src/assets/markdownfig/modeselsc.png)
 
 ### Compare two values of accuracy
 
