@@ -1,0 +1,514 @@
+h2{
+  
+  text-align:center;
+  font-size: 2em;
+  color:#99ccff
+}
+
+::ng-deep .mat-tooltip {
+  background: rgb(240, 240, 240)!important;
+  color:rgb(0, 0, 0)!important;
+  font-size: 1.05em;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+input[type="number"]{
+  -moz-appearance: textfield;
+}
+
+.intro{
+  width:90vw;
+  margin-left: 5vw; 
+  margin-bottom:  3vw;  margin-top: 3vw;; 
+  text-align: left; 
+  font-size: 1.1em;
+  padding: 2vw 3vw;  
+  background-color: rgb(230, 230, 230);
+  box-shadow: 5px 5px 8px  rgb(151, 151, 151);
+  border-radius: 5px;
+  
+}
+
+.radioButton{
+width: 90vw;
+
+margin: auto;
+
+
+/* background-color: rgb(230, 230, 230);
+border-radius: 10px;
+padding: 2vw 3vw;
+box-shadow: 7px 7px 10px rgb(151, 151, 151); */
+
+
+}
+
+
+.rbt{
+display: inline-block ;
+width:50%;
+/* box-sizing: border-box; */
+text-align: left;
+font-size: 1.4em;
+/* border: 2px solid #a03bb9; */
+padding-left: 15vw;
+padding-top: 1em;
+}
+
+
+
+
+.inputs{
+  margin-top: 2em;
+  padding: 0 15vw 0;
+  
+
+/* border: 2px solid #a03bb9; */
+
+}
+
+
+
+.param{
+margin: auto;
+width: 80%;
+height: 5em;
+/* border: 2px solid #a03bb9; */
+}
+
+.lb{
+float: left;
+width: 60%;
+height:70%;
+text-align: left;
+font-size: 1.3em;
+/* border: 2px solid #818181; */
+
+}
+
+.inputbox{
+float: right;
+width: 39%;
+height: 60%;
+text-align: right;
+/* border: 2px solid #427e5d; */
+
+}
+
+.ipt{
+width: 50%;
+height: 90%;
+text-align: start;
+font-size: 1.2em;
+
+} 
+
+
+.buttons{
+
+
+  margin: auto;
+  text-align: center;
+  font-size: 1.2em;
+
+}
+
+
+button{
+width: 15vmin;
+height: 7.5vmin;
+border-radius: 6px;
+margin-left: 10% ;
+margin-right: 10%;
+border: none;
+
+}
+
+img{
+  cursor: pointer;
+}
+
+button.calculate{ 
+background-color: #a5a5a5;
+color: #ffffff;
+box-shadow: 5px 5px 3px rgb(163, 162, 162);
+}
+button.calculate:hover{
+background-color: rgb(95, 95, 95);
+box-shadow: 5px 5px 10px rgb(163, 162, 162);
+border: none;
+}
+
+button.clear{
+background-color:#f78467;
+color: #ffffff; 
+box-shadow: 5px 5px 3px rgb(163, 162, 162);
+}
+button.clear:hover{
+background-color: rgb(161, 19, 19);
+box-shadow: 5px 5px 10px rgb(163, 162, 162);
+}
+
+button.calculate:active{
+border-radius: 8px;
+height:  7vmin;
+}
+
+button.clear:active{
+border-radius: 8px;
+height: 7vmin;
+box-shadow: darkgray;
+}
+
+
+.outputs{
+  padding: 0 20vw 0;
+  /* border: 2px solid #427e5d; */
+
+}
+
+
+
+.results{
+margin: auto;
+height: 5em;
+/* border: 2px solid #adc6cc; */
+
+
+}
+
+.lbr{
+  float: left;
+  width: 70%;
+
+  text-align: left;
+  font-size: 1.3em;
+
+}
+
+.outputbox{
+  float: right;
+  width: 29%;
+  height: 60%;
+  text-align: center;
+}
+
+.calculator{
+  float: right;
+  width: 70%;
+  height: 90%;
+  text-align: start;
+  font-size: 1.2em;
+
+}
+
+.res{
+  float: right;
+  width: 70%;
+  height: 90%;
+  text-align: start;
+  font-size: 1.2em;
+}
+
+.equation{
+
+padding:0 10vw 0;;
+height: auto;
+text-align: center;
+/* border: 2px solid #0a0001; */
+
+}
+.equation p{
+
+/* border: 2px solid #0590b3; */
+text-align: left;
+font-size: 1.7em;
+font-weight: 700;
+}
+
+
+.formula{
+
+
+vertical-align: baseline;
+height: auto;
+text-align: center;
+margin: auto;
+/* border: 2px solid #21c512; */
+
+}
+
+.exptxt{
+float: left;
+width: 0%;
+height: 90%;
+text-align: left;
+padding-left: 8vw;
+/* display: -webkit-box; */
+font-size: 1.5em;
+/* -webkit-box-align: center;
+-webkit-box-pack: center; */
+
+}
+
+.exp{
+float: right;
+width: 100%;
+height: 90%;
+text-align: center;
+font-size: 1.2em;
+}
+
+.expauc{
+
+  width: 100%;
+  height: 90%;
+  text-align: center;
+  padding-left: 8vw;
+  font-size: 1.2em;
+}
+
+.referrence{
+ /* float: left; */
+  padding:0  10vw 0;
+  text-shadow:1px  rgb(110, 110, 110);
+  color: aliceblue;
+
+  background-color: #004985 ;
+}
+
+
+@media screen and (max-width:700px){
+
+
+.intro{
+  float: left;
+  width:85vw;
+  margin-left: 7.5vw; 
+  margin-bottom:  3vw;  margin-top: 3vw;; 
+  text-align: left; 
+  font-size: 1.1em;
+  padding: 2vw 3vw;  
+  background-color: rgb(230, 230, 230);
+  box-shadow: 5px 5px 8px  rgb(151, 151, 151);
+  border-radius: 5px;
+  font-size: 0.95em;
+  
+}
+
+h2{
+    font-size: 1.2em;
+    /* border: 2px solid #555554; */
+    margin: auto;
+  }
+
+
+  
+.radioButton{
+
+    padding: 0 10vw 0;
+    /* border: 2px solid #3bb5b9; */
+    float: left;
+    
+
+  }
+  
+
+.rbt{
+    margin: auto;
+    margin-top: 5vw;
+    float: left;
+    width: 80vw;
+    text-align: left;
+    font-size: 1em;
+    float: left;
+    /* border: 2px solid #a03bb9; */
+
+  }
+  
+  
+  
+  
+.inputs{
+ 
+  float: left;
+
+  padding: 0 8vw 0;
+  margin-top: 1.5em;
+/* 
+  border: 2px solid #613e21; */
+  
+
+
+  } 
+.param{
+margin: auto;
+width: 100%;
+height: 4em;
+/* border: 2px solid #a03bb9; */
+}
+
+.lb{
+float: left;
+width: 70%;
+height:80%;
+text-align: left;
+font-size: 1em;
+/* border: 2px solid #818181; */
+
+}
+
+.inputbox{
+float: right;
+width: 28%;
+height: 70%;
+text-align: right;
+/* border: 2px solid #427e5d; */
+
+}
+
+.ipt{
+width: 80%;
+height: 90%;
+text-align: start;
+font-size: 1.2em;
+
+} 
+  
+.buttons{
+  margin: auto;
+  text-align: center;
+
+  }
+  
+  
+.buttons button{
+  width: 25vw;
+  height: 12vw;
+  border-radius: 6px;
+  /* margin-left: 10% ;
+  margin-right: 10%; */
+  border: none;
+  
+  }
+  
+
+  
+  
+.outputs{
+  float: left;
+  padding: 0 5vw 0;
+  /* border: 2px solid #0b1d16; */
+
+  }
+  
+  
+  
+.results{
+    float: left;
+    width: 100%;
+
+    height: 5em;
+
+    /* border: 2px solid #74d41b; */
+
+  }
+  
+
+.outputbox{
+  
+  width: 29%;
+
+
+  
+  }
+.calculator{
+  float: left;
+  width: 80%;
+  /* font-size: 1px; */
+  /* border: 2px solid #2317c5; */
+
+  
+  }
+.lbr{
+    float: left;
+    width: 70%;
+    text-align: left;
+    font-size: 1em;
+  }
+input.res{
+    float: left;
+    width: 80%;
+
+  }
+
+.equation{
+  padding:0 3vw 0;;
+  height: auto;
+  text-align: center;
+  }
+
+
+.equation p{
+  text-align: left;
+  font-size: 1.2em;
+  font-weight: 700;
+  /* border: 2px solid #adc6cc; */
+
+  }
+.formula{
+
+  /* border: 2px solid #c57f17; */
+  height: auto;
+  float: left;
+  margin-top: 1em;
+
+  }
+  
+.exptxt{
+
+  /* border: 2px solid #7e135a; */
+  width: 90%;
+  float: left;
+  font-size: 1em;
+  }
+  
+.exp{
+
+  margin-top: 0.5em;
+  /* border: 2px solid #b2d322; */
+  width: 90%;
+  float: left;
+  font-size: 1em;
+  
+
+
+  }
+  
+.expauc{
+
+  margin-top: 0.8em;
+  margin-left: 0%;
+  padding: 0%;
+  /* border: 2px solid #b2d322; */
+ width: 90%;
+ float: left;
+ text-align: left;
+ font-size: 0.6em;
+  } 
+
+ 
+.referrence{
+  float: left;
+  margin-top: 1.5em;
+  padding:0  5vw 0;
+  text-shadow:1px  rgb(110, 110, 110);
+  color: aliceblue;
+  background-color: #004985 ;
+
+      }
+      
+}

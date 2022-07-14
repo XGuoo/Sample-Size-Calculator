@@ -1,0 +1,480 @@
+<h2>Please select a mode
+</h2>
+
+
+<div class="radioButton">
+    <div class="rbt">
+        <input type="radio" name="modes" (click)="mode='compare';showData(mode)" />Compare accuracy of two tests
+    </div>
+    <div class="rbt">
+        <input type="radio" name="modes" (click)="mode='testsingle';showData(mode)" />Test accuracy of a single test
+    </div>
+    <!-- <hr class="rbt"> -->
+    <!-- <input type="radio" name="modes" (click)="mode='prevalence';showData(mode)">Based on Prevalence -->
+</div>
+
+
+
+<div class="intro" *ngIf="showp2">
+    You can determine the number of samples/subjects needed in order to ensure that the two diagnostic test have
+    different diagnostic abilities and that the study has high probability (power) to detect the actual difference.
+
+    The null hypothesis states that the two tests are equivalent in their ability to diagnose, where p1 and p2 are the
+    accuracies of each test.
+
+    &alpha;% is the probability of falsely rejecting the null hypothesis and it gives a basis to prove the existence of
+    a
+    difference in the phenomenon under test <a
+        href="https://www.scirp.org/(S(lz5mqp453edsnp55rrgjct55))/reference/ReferencesPapers.aspx?ReferenceID=2041144"
+        style="text-decoration: none;color: rgb(0, 0, 0);" target="_blank">[2]</a>.
+
+    The power, (1-&beta;)%, is the probability that the study will detect a difference in diagnostic abilities, given
+    that
+    the phenomenon actually exists <a style="text-decoration: none;color: rgb(0, 0, 0);" target="_blank">[3]</a>.
+    This calculator uses a <b>two-tailed z-score test under the null and alternative hypothesis</b> for a <b>two-sample
+        test of equality</b>. Normal approximation is the general rule and the two study groups, n1 and n2, are
+    independent <a href="https://pubmed.ncbi.nlm.nih.gov/24582925/" style="color: rgb(0, 0, 0);text-decoration:none;"
+        target="_blank">[4]</a>,meaning that the two tests are evaluated on different subjects.
+    One-sided tests are often possible but rarely used in clinical research.
+
+</div>
+
+<div class="intro" *ngIf="showp0">
+    You can determine the number of samples/subjects needed in order to ensure that your diagnostic test meets an
+    acceptable
+    pre-specified performance and that the study has high probability (power) to detect that your test is better than
+    the minimal fixed accuracy <a href="https://www.sciencedirect.com/science/article/pii/S1525157816301362"
+        style="text-decoration: none;color: rgb(0, 0, 0);" target="_blank">[1]</a>.
+    <br>
+    The null hypothesis states that your test accuracy p1 is equivalent to the pre-specified one p0, i.e. the phenomenon
+    under test is absent.
+    &alpha; % is the probability of falsely rejecting the null hypothesis and it gives a basis to prove the existence of
+    the
+    phenomenon to be demonstrated <a
+        href="https://www.scirp.org/(S(lz5mqp453edsnp55rrgjct55))/reference/ReferencesPapers.aspx?ReferenceID=2041144"
+        style="text-decoration: none;color: rgb(0, 0, 0);" target="_blank">[2]</a>.
+    The power (1-&beta;)% is the probability that the study will detect a difference in accuracies, given that the
+    phenomenon
+    actually exists <a style="text-decoration: none;color: rgb(0, 0, 0);" target="_blank">[3]</a>.
+    This calculator uses a <b>two-tailed z-score test under the null and alternative hypothesis</b> (conditional
+    approach) and normal
+    approximation is the general rule <a href="https://pubmed.ncbi.nlm.nih.gov/24582925/"
+        style="color: rgb(0, 0, 0);text-decoration:none;" target="_blank">[4]</a>. One-sided tests are often possible
+    but rarely used in clinical research.
+</div>
+
+
+
+<div class="inputs">
+    <br *ngIf="show">
+    <div *ngIf="showp0" class="param">
+        <div class="lb">
+            <label>Sensitivity/Specificity of reference,<em> P<sub>0</sub></em></label>
+        </div>
+        <div class="inputbox">
+            <input class="ipt" #p0 (keyup)="onKey(p0.value)" type="number" placeholder="" value={{p0}}
+                oninput="if(value>100)value=100;if(value<0)value=0" /><span>%</span>
+        </div>
+    </div>
+
+    <br *ngIf="showp0">
+
+    <div *ngIf="showp0" class="param">
+        <div class="lb">
+            <label>Sensitivity/Specificity of the new test,<em> P<sub>1</sub></em></label>
+        </div>
+        <div class="inputbox">
+            <input class="ipt" #p1 (keyup)="onKey1(p1.value)" type="number" placeholder="" value={{p1}}
+                oninput="if(value>100)value=100;if(value<0)value=0" /><span>%</span>
+        </div>
+    </div>
+
+    <div *ngIf="showp2" class="param">
+        <div class="lb">
+            <label>Sensitivity/Specificity of the reference,<em> P<sub>1</sub></em></label>
+        </div>
+        <div class="inputbox">
+            <input class="ipt" #p1 (keyup)="onKey1(p1.value)" type="number" placeholder="" value={{p1}}
+                oninput="if(value>100)value=100;if(value<0)value=0" /><span>%</span>
+        </div>
+    </div>
+
+    <div *ngIf="showp2" class="param">
+        <div class="lb">
+            <label>Sensitivity/Specificity of the new test,<em> P<sub>2</sub></em></label>
+        </div>
+        <div class="inputbox">
+            <input class="ipt" #p2 (keyup)="onKey2(p2.value)" type="number" placeholder="" value={{p2}}
+                oninput="if(value>100)value=100;if(value<0)value=0" /><span>%</span>
+        </div>
+    </div>
+
+    <div *ngIf="showp2" class="param">
+        <div class="lb">
+            <label>Allocation ratio, k =n1/n2</label>
+            <img src="assets\icon\information-circle-outline.svg" style="width: 1em; height: 1em;" mat-raised-button
+            matTooltipPosition="right"
+            matTooltip="The allocation ratio is the ratio between the sample sizes of the two groups under study. In fact, the two tests under comparison are tested on these separate groups.">
+
+        </div>
+        
+        <div class="inputbox">
+            <input class="ipt" #k (keyup)="onKey3(k.value)" type="number" placeholder="" value={{k}}
+                 /><span style="visibility: hidden;">%</span>
+        </div>
+    </div>
+
+    <br *ngIf="showp0">
+
+
+
+    <div *ngIf="show" class="param">
+        <div class="lb">
+            <label>Significance level,<em> &alpha;</em></label>
+            <img src="assets\icon\information-circle-outline.svg" style="width: 1em; height: 1em;" mat-raised-button
+                matTooltipPosition="right" matTooltip="5% significance level is considered as the standard in the literature.
+            Higher significance levels lead to an increase in power. However, as the significance level
+            increases, the probability of making an error in claiming a difference when in fact none exists
+            becomes higher [3]">
+
+        </div>
+        <div class="inputbox">
+            <select class="ipt" [(ngModel)]="selec">
+                <option *ngFor="let sig of significance" [value]="sig.significancelevel">
+                    {{sig.significancelevel}}
+                </option>
+            </select><span>%</span>
+        </div>
+    </div>
+    <br *ngIf="show">
+
+
+
+    <div *ngIf="show" class="param">
+        <div class="lb">
+            <label>Power,<em> (1-&beta;)</em></label>
+            <img src="assets\icon\information-circle-outline.svg" style="width: 1em; height: 1em;" mat-raised-button
+                matTooltipPosition="right" matTooltip="The minimum power value is usually set as 80% [6].">
+        </div>
+        <div class="inputbox">
+            <select class="ipt" [(ngModel)]="selecp">
+                <option *ngFor="let pw of power" [value]="pw.power">
+                    {{pw.power}}
+                </option>
+            </select><span>%</span>
+        </div>
+    </div>
+    <br *ngIf="show">
+
+    <div *ngIf="show" class="param">
+        <div class="lb">
+            <label>Failure rate in sampling,<em> q</em>
+                <img src="assets\icon\information-circle-outline.svg" style="width: 1em; height: 1em;" mat-raised-button
+                    matTooltipPosition="right"
+                    matTooltip="The sample processing, stretching from patient identification, to sample collection and result, might not work as planned due to technical or procedural problems (e.g. contamination, failure to get the test performed in time, subjects withdrawal, missing data). It is necessary to account for these issues when determining the sample size and an additional 10-20% subjects are recruited.">
+
+            </label>
+        </div>
+        <div class="inputbox">
+            <input class="ipt" #q (keyup)="onKey4(q.value)" type="number" name="q" placeholder="" value={{lh}}
+                oninput="if(value>100)value=100;if(value<0)value=0"><span>%</span>
+        </div>
+
+    </div>
+    <!-- <br *ngIf="showlh"> -->
+
+    <!-- <a>{{ld}} </a> -->
+
+</div>
+
+<br *ngIf="show">
+
+<div *ngIf="show" class="buttons">
+    <button type="button" (click)="calculation()" class="calculate" value="Calculate">Calculate</button>
+    <button type="button" (click)="clearall()" class="clear" value="Clear">Clear</button>
+    <br>
+</div>
+
+<br>
+<br>
+
+
+<div class="outputs">
+
+    <div class="results" *ngIf="showp0">
+        <div class="lbr">
+            <label>'Estimated sample size using conditional approach,N:</label>
+        </div>
+        <div class="outputbox">
+            <input class="res" type="number" name="result" value={{res}} disabled>
+        </div>
+        <br>
+    </div>
+
+    <div class="results" *ngIf="showp0">
+        <div class="lbr">
+            <label>Estimated sample size using unconditional approach,N:</label>
+        </div>
+        <div class="outputbox">
+            <input class="res" type="number" name="result" value={{n2}} disabled>
+        </div>
+        <br>
+
+    </div>
+</div>
+
+<div class="outputs" *ngIf="showp2">
+
+    <div class="block">
+        <label class="lbt">Sample size using conditional approach:</label>
+
+        <div class="lbr1">
+            <label class="lbl">Sample size, N:</label>
+            <input class="res1" type="number" name="nc" value={{nc}} disabled>
+        </div>
+
+
+        <div class="lbr1">
+            <label class="lbl">Sample size group 1, n1:</label>
+            <input class="res1" type="number" name="n1" value={{n1c}} disabled>
+        </div>
+
+
+        <div class="lbr1">
+            <label class="lbl">Sample size group 2, n2:</label>
+            <input class="res1" type="number" name="n2" value={{n2c}} disabled>
+        </div>
+
+    </div>
+
+
+    <div class="block">
+        <label class="lbt">Sample size with the continuity correction factor:<img
+                src="assets\icon\information-circle-outline.svg" style="width: 1em; height: 1em;" mat-raised-button
+                matTooltipPosition="right"
+                matTooltip="The continuity correction factor accounts for the lack of continuity in the binomial distribution [5]."></label>
+
+        <div class="lbr1">
+            <label class="lbl">Sample size, N:</label>
+            <input class="res1" type="number" name="n" value={{ncc}} disabled>
+        </div>
+
+
+
+        <div class="lbr1">
+            <label class="lbl">Sample size group 1, n1:</label>
+            <input class="res1" type="number" name="n1" value={{n1cc}} disabled>
+        </div>
+
+
+
+        <div class="lbr1">
+            <label class="lbl">Sample size group 2, n2:</label>
+            <input class="res1" type="number" name="n2" value={{n2cc}} disabled>
+        </div>
+
+
+
+
+    </div>
+
+    <br>
+
+    <div class="block">
+        <label class="lbt">Sample size using unconditional approach:</label>
+
+        <div class="lbr1">
+            <label class="lbl">Sample size, N:</label>
+            <input class="res1" type="number" name="n" value={{nuc}} disabled>
+        </div>
+
+
+        <div class="lbr1">
+            <label class="lbl">Sample size group 1, n1:</label>
+            <input class="res1" type="number" name="n1" value={{n1uc}} disabled>
+        </div>
+
+
+        <div class="lbr1">
+            <label class="lbl">Sample size group 2, n2:</label>
+            <input class="res1" type="number" name="n2" value={{n2uc}} disabled>
+        </div>
+
+    </div>
+
+
+    <div class="block">
+        <label class="lbt">Sample size with the continuity correction factor:<img
+                src="assets\icon\information-circle-outline.svg" style="width: 1em; height: 1em;" mat-raised-button
+                matTooltipPosition="right"
+                matTooltip="The continuity correction factor accounts for the lack of continuity in the binomial distribution [5].">
+        </label>
+
+        <div class="lbr1">
+            <label class="lbl">Sample size, N:</label>
+            <input class="res1" type="number" name="n" value={{nucc}} disabled>
+        </div>
+
+
+        <div class="lbr1">
+            <label class="lbl">Sample size group 1, n1:</label>
+            <input class="res1" type="number" name="n1" value={{n1ucc}} disabled>
+        </div>
+
+        <div class="lbr1">
+            <label class="lbl">Sample size group 2, n2:</label>
+            <input class="res1" type="number" name="n2" value={{n2ucc}} disabled>
+        </div>
+
+
+
+    </div>
+
+
+</div>
+<br>
+
+
+
+<div class="equation" *ngIf="show">
+    <p>Formulas for the computation of sample size:</p>
+    <div class="formula" *ngIf="showp0">
+
+        <div class="exp" [mathjax]="[expnse1]">
+            <label>Conditional approach: </label>
+            \( {{ '{}' }} \)
+        </div>
+
+
+        <div class="exp" [mathjax]="[exp1]">
+            <label>Unconditional approach: </label>
+            \( {{ '{}' }} \)
+        </div>
+        <br *ngIf="showp0">
+
+
+
+        <div class="exp" [mathjax]="[expnse2]">
+
+            <label>Sample Size, N:</label>
+            \( {{ '{}' }} \)
+        </div>
+    </div>
+
+    <div class="formula" *ngIf="showp2">
+
+        <div class="expcompare" [mathjax]="[expnse3]">
+            \( {{ '{}' }} \)
+        </div>
+
+        <br>
+
+        <div class="expcompare" [mathjax]="[expnse4]">
+            \( {{ '{}' }} \)
+        </div>
+
+        <br>
+
+        <div class="expcompare" [mathjax]="[expnse5,expuc]">
+            <label>
+                Conditional Approach:
+            </label>
+            \( {{ '{}' }} \);
+            <label>
+                Unconditional Approach:
+            </label>
+            \( {{ '{}' }} \)
+        </div>
+
+
+        <br>
+
+        <div class="expcompare" [mathjax]="[expnse6]">
+            \( {{ '{}' }} \)
+        </div>
+
+        <br>
+
+        <div class="expcompare" [mathjax]="[expnse7]">
+            \( {{ '{}' }} \)
+        </div>
+
+        <br>
+
+        <div class="expcompare" [mathjax]="[expnse8]">
+            \( {{ '{}' }} \)
+        </div>
+
+        <br>
+
+        <div class="expcompare" [mathjax]="[expnse9]">
+            \( {{ '{}' }} \)
+        </div>
+
+        <br>
+
+
+        <div class="expcompare" [mathjax]="[expcf]">
+            <label>
+                The formula for applying the continuity factor can be presented as:
+            </label>
+            \( {{ '{}' }} \)
+        </div>
+
+    </div>
+
+</div>
+
+<!-- <div class="ps" *ngIf="showp2"
+    style="width:80vw; text-align: left; float: left; margin-left: 10vw; margin-top: 3vw; font-size: 1em; ">
+
+    * G*Power 3.1 is another powerful calculator to compute the sample size and can be found at 
+    <a href="https://www.psychologie.hhu.de/arbeitsgruppen/allgemeine-psychologie-und-arbeitspsychologie/gpower.html"
+        style="text-decoration:none; " target="_blank">Gpower</a>
+    Several types of power analysis can be explored along with the ‘a priori’ one, that is the one performed by
+    this sample calculator.
+</div> -->
+
+<br>
+<br>
+
+
+<div class="referrence" *ngIf="show">
+    <hr>
+    <p style="font-size: 1.5em; font-weight: 600 ;">References:</p>
+    <a 
+        style="color: aliceblue;text-decoration:none;" target="_blank"><cite>[1] B. Biswas, “Clinical Performance
+            Evaluation of
+            Molecular Diagnostic Tests,” J. Mol. Diagnostics, vol. 18, no. 6, pp. 803–812, 2016. </cite></a>
+    <br>
+    <a 
+        style="color: aliceblue;text-decoration:none;" target="_blank"><cite>[2] J. Cohen, Statistical Power Analysis for the Behavioral Sciences, Second Edi. Lawrence Erlbaum Associates, 1988. </cite></a>
+    <br>
+    <a style="color: aliceblue;text-decoration:none;" target="_blank"><cite>[3] A. Beam, “Strategies Radiology,” no.
+            September, 1992.
+        </cite></a>
+    <br>
+    <a style="color: aliceblue;text-decoration:none;"
+        target="_blank"><cite>[4] K. Hajian-Tilaki, “Sample size estimation in diagnostic
+            test studies of biomedical informatics,” J.
+            Biomed. Inform., vol. 48, pp. 193–204, 2014. </cite></a>
+    <br>
+    <a  style="color: aliceblue;text-decoration:none;"
+        target="_blank"><cite>[5] J. L. Fleiss, A. Tytun, and H. K. Ury, “A Simple Approximation for Calculating Sample
+            Sizes for Comparing Independent Proportions Intern,” Int. Biometric Soc., vol. 36, no. 2, pp. 343–346, 1980.
+        </cite></a>
+    <br>
+    <a style="color: aliceblue;text-decoration:none;" target="_blank"><cite>[6] Chow S C, Wang H, Shao J. Sample size calculations in clinical research[M]. Chapman and Hall/CRC, 2007. </cite></a>
+    <br>
+    <a style="color: aliceblue;text-decoration:none;"
+        target="_blank"><cite>[7] N. Lu et al., “Power analysis for cross-sectional and
+            longitudinal study designs,” Shanghai Arch.
+            Psychiatry, vol. 25, no. 4, p. 259, 2013. </cite></a>
+
+
+    <br>
+    <br>
+    <br>
+
+
+</div>

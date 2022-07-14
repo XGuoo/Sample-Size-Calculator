@@ -1,0 +1,391 @@
+<h2>Please select a mode</h2>
+
+
+<div class="radioButton">
+  <div class="rbt">
+    <input type="radio" name="modes" (click)="mode='sensitivity';showData(mode)" />Based on Sensitivity
+  </div>
+  <div class="rbt">
+    <input type="radio" name="modes" (click)="mode='specificity';showData(mode)" />Based on Specificity
+  </div>
+  <div class="rbt">
+    <input type="radio" name="modes" (click)="mode='ss';showData(mode)" />Based on Sensitivity & Specificity
+  </div>
+
+
+  <div class="rbt">
+    <input type="radio" name="modes" (click)="mode='auc';showData(mode)" />Area under the ROC curve (AUC)
+  </div>
+
+  <!-- <div class="rbt" style="visibility: hidden;">
+    <input type="radio" name="modes" (click)="mode='lr';showData(mode)" />Likelihood ratio (LR)
+  </div> -->
+
+  <!-- <input type="radio" name="modes" (click)="mode='prevalence';showData(mode)">Based on Prevalence -->
+</div>
+
+
+
+<br>
+<!-- <p>＼[J_\alpha(x) = \sum_{m=0}^\infty \frac{(-1)^m}{m! \Gamma (m + \alpha + 1)} {\left({ \frac{x}{2} }\right)}^{2m + \alpha}＼]</p> -->
+
+<div class="intro" *ngIf="showauc">You can determine the number of samples/ subjects needed in order to estimate the
+  area under the ROC curve of a
+  diagnostic test. This takes into account the trade-off between the sensitivity and the specificity of the test. AUC
+  can be estimated using parametric (binormal) and nonparametric (Wilcoxen statistic) approaches. Here we use the
+  binormal approach. </div>
+
+
+<div class="inputs">
+
+  <div *ngIf="showprev" class="param">
+    <div class="lb">
+      <label>Prevalence,<em> Prev</em></label>
+    </div>
+    <div class="inputbox">
+      <input class="ipt" #prevalence (keyup)="onKey(prevalence.value)" type="number" placeholder="" value={{prev}}
+        oninput="if(value>100)value=100;if(value<0)value=0" /><span>%</span>
+    </div>
+  </div>
+
+  <br *ngIf="show">
+
+  <div *ngIf="showauc" class="param">
+    <div class="lb">
+      <label>Area under the curve,<em> AUC:</em></label>
+      <img src="assets\icon\information-circle-outline.svg" style="width: 1em; height: 1em;" mat-raised-button
+        matTooltipPosition="right" matTooltip="The value of AUC should between 0.5 and 0.99">
+    </div>
+    <div class="inputbox">
+      <input class="ipt" #auc (keyup)="onKeyauc(auc.value)" type="number" step="0.01" placeholder="" value={{auc}}
+        oninput="if(value>=1)value=0.99;" /><span style="visibility: hidden;">%</span>
+    </div>
+  </div>
+
+  <br *ngIf="showauc">
+
+  <div *ngIf="showauc" class="param">
+    <div class="lb">
+      <label>Allocation ratio,<em> R=N_D/N_ND:</em></label>
+      <img src="assets\icon\information-circle-outline.svg" style="width: 1em; height: 1em;" mat-raised-button
+        matTooltipPosition="right"
+        matTooltip="The allocation ratio represents the sample size of subject with (N_D) the condition of interest over the ones withouth (N_ND). R=N_D/N_ND">
+    </div>
+    <div class="inputbox">
+      <input class="ipt" #R (keyup)="onKeyR(R.value)" type="number" step="0.01" placeholder="" value={{R}}
+        oninput="if(value>1)value=1;" /><span style="visibility: hidden;">%</span>
+    </div>
+  </div>
+
+  <br *ngIf="showauc">
+
+  <div *ngIf="showse" class="param">
+    <div class="lb">
+      <label>Sensitivity,<em> Se</em></label>
+    </div>
+    <div class="inputbox">
+      <input class="ipt" #sensitivity (keyup)="onKey1(sensitivity.value)" type="number" name="sensitivity"
+        placeholder="" value={{se}} oninput="if(value>100)value=100;if(value<0)value=0"><span>%</span>
+    </div>
+  </div>
+
+  <br *ngIf="showse">
+
+
+  <div *ngIf="showsp" class="param">
+    <div class="lb">
+      <label>Specificity, <em> Sp</em></label>
+    </div>
+    <div class="inputbox">
+      <input class="ipt" #specificity (keyup)="onKey2(specificity.value)" type="number" name="specificity"
+        placeholder="" value={{sp}} oninput="if(value>100)value=100;if(value<0)value=0"><span>%</span>
+    </div>
+  </div>
+
+  <br *ngIf="showsp">
+
+
+  <div *ngIf="show" class="param">
+    <div class="lb">
+      <label>Maximum marginal error,<em> M</em>
+        <img src="assets\icon\information-circle-outline.svg" style="width: 1em; height: 1em;" mat-raised-button
+          matTooltipPosition="right" matTooltip="Margin of error: precision with which your accuracy of interest is
+        measured. There are no official recommendations on the margin of errors, but smaller margins of error are preferred.
+        Values like 5-10% are frequently used.">
+
+      </label>
+    </div>
+    <div class="inputbox">
+      <input class="ipt" #merror (keyup)="onKey3(merror.value)" type="number" name="merror" placeholder="" value={{me}}
+        oninput="if(value>100)value=100;if(value<0)value=0"><span>%</span>
+    </div>
+  </div>
+  <br *ngIf="show">
+
+
+  <div *ngIf="show" class="param">
+    <div class="lb">
+      <label>Confidence level,<em> (1-&alpha;)</em></label>
+    </div>
+    <div class="inputbox">
+      <select class="ipt" [(ngModel)]="selec">
+        <option *ngFor="let conf of confidence" [value]="conf.condidencelevel">
+          {{conf.condidencelevel}}
+        </option>
+      </select><span>%</span>
+    </div>
+  </div>
+  <br *ngIf="show">
+
+  <div *ngIf="showlh" class="param">
+    <div class="lb">
+      <label>Failure rate in sampling,<em> q</em>
+        <img src="assets\icon\information-circle-outline.svg" style="width: 1em; height: 1em;" mat-raised-button
+          matTooltipPosition="right" matTooltip="The sample processing, stretching frompatient identification, to sample
+        collection and result, might not work as planned due totechnical orprocedural problems (e.g.
+        contamination,failure to get the test performed in time, subjects withdrawal, missing data). It isnecessary
+        to account forthese issueswhen determining the sample size and an additional 10-20% subjects are recruited .">
+
+      </label>
+    </div>
+    <div class="inputbox">
+      <input class="ipt" #likelihood (keyup)="onKey4(likelihood.value)" type="number" name="likelihood" placeholder=""
+        value={{lh}} oninput="if(value>100)value=100;if(value<0)value=0"><span>%</span>
+    </div>
+
+  </div>
+  <!-- <br *ngIf="showlh"> -->
+
+  <!-- <a>{{ld}} </a> -->
+
+</div>
+
+
+<br *ngIf="show">
+
+<div *ngIf="show" class="buttons">
+  <button type="button" (click)="calculation()" class="calculate" value="Calculate">Calculate</button>
+  <button type="button" (click)="clearall()" class="clear" value="Clear">Clear</button>
+</div>
+
+<br>
+
+<div class="outputs">
+
+  <div class="results" *ngIf="showauc">
+    <div class="lbr">
+      <label>The sample sizes for each group of diseased and nondiseased people is:</label>
+    </div>
+
+  </div>
+  <div class="results" *ngIf="showauc">
+    <div class="lbr">
+      <label>Sample size for the group with the condition, N<sub>D</sub>:</label>
+    </div>
+    <div class="outputbox">
+      <input class="res" type="number" name="result" value={{nd}} disabled>
+    </div>
+
+  </div>
+  <div class="results" *ngIf="showauc">
+    <div class="lbr">
+      <label>Sample size for the group without the condition, N<sub>ND</sub>:</label>
+    </div>
+    <div class="outputbox">
+      <input class="res" type="number" name="result" value={{nnd}} disabled>
+    </div>
+  </div>
+
+  <div class="results" *ngIf="showres">
+    <div class="lbr">
+      <label>Estimated sample size, N:</label>
+    </div>
+    <div class="outputbox">
+      <input class="res" type="number" name="result" value={{res}} disabled>
+    </div>
+
+  </div>
+
+  <div class="results" *ngIf="showss">
+    <div class="lbr">
+      <label>Estimated sample size N <sub>Se</sub>(based on sensitivity)</label>
+    </div>
+    <div class="outputbox">
+      <input type="number" class="calculator" name="result" placeholder="" value={{res}} disabled>
+    </div>
+    <br>
+  </div>
+
+  <div class="results" *ngIf="showss">
+    <div class="lbr">
+      <label>Estimated sample size N <sub>Sp</sub>(based on specificity)</label>
+    </div>
+    <div class="outputbox">
+      <input type="number" class="calculator" name="result" value={{ressp}} disabled>
+    </div>
+    <br>
+  </div>
+
+  <div class="results" *ngIf="showss">
+    <div class="lbr">
+      <label>Estimated Positive Predictive Value(PPV)</label>
+    </div>
+    <div class="outputbox">
+      <input type="number" class="calculator" name="ppv" value={{ppv}} disabled>
+    </div>
+    <br>
+  </div>
+
+  <div class="results" *ngIf="showss">
+    <div class="lbr">
+      <label>Estimated Negative Predictive Value(NPV)</label>
+    </div>
+    <div class="outputbox">
+      <input type="number" class="calculator" name="npv" value={{npv}} disabled>
+    </div>
+  </div>
+</div>
+<!-- <hr *ngIf="show"> -->
+
+<br>
+
+
+<div class="equation" *ngIf="show">
+  <p>Formulas for the computation of sample size:
+  <div class="formula" *ngIf="showsef">
+    <p style="font-weight: 400;"> The sample size for estimating a pre-specified sensitivity,<em>Se</em>, can be
+      computed as follow：</p>
+    <!-- <div class="exptxt">
+      <!-- <label>sample size based on sensitivity:</label> -->
+    <!-- </div> -->
+
+
+    <div class="exp" [mathjax]="[expnse1]">
+      \( {{ '{}' }} \)
+
+    </div>
+    <br>
+    <br>
+    <p style="font-weight: 400;">Where <em>Prev</em> is the prevalence of disease, <em>M</em> the margin of error and
+      Z<sub><sup>&alpha;</sup>&frasl;<sub>2</sub></sub> represents the upper percentiles of standard normal distribution
+      for the &alpha;-level. The final sample size introducing the failure rate in sampling, <em>q</em>, is:</p>
+
+    <div class="exp" [mathjax]="[ expnse2]">
+        \( {{ '{}' }} \)
+  
+    </div>
+    <br *ngIf="show">
+    <br *ngIf="show">
+    <br *ngIf="show">
+
+  </div>
+
+  <div class="formula" *ngIf="showauc">
+    <!-- <div class="exptxt">sample size based on specificity: </div> -->
+
+    <div class="expauc" [mathjax]="[expauc1,expauc2]">
+      \( {{ '{}' }} \) <label style="font-size:1.5em;"> and </label>
+      \( {{ '{}' }} \)
+    </div>
+
+    <br *ngIf="show">
+    <div class="expauc" [mathjax]="[expauc3,expauc4]">
+      \( {{ '{}' }} \) <label style="font-size:1.5em;"> and </label>
+      \( {{ '{}' }} \)
+    </div>
+
+    <br *ngIf="show">
+    <div class="expauc" [mathjax]="[expauc5]">
+      \( {{ '{}' }} \)
+    </div>
+    <br *ngIf="show">
+
+    <div class="expauc" [mathjax]="[expauc6]">
+      \( {{ '{}' }} \)
+    </div>
+    <br *ngIf="show">
+  </div>
+
+  <div class="formula" *ngIf="showspf">
+    <!-- <div class="exptxt">sample size based on specificity: </div> -->
+    <p style="font-weight: 400;"> The sample size for estimating a pre-specified specificity,<em>Sp</em>, can be
+      computed as follow：</p>
+    <div class="exp" [mathjax]="[expnsp1]">
+      \( {{ '{}' }} \)
+    </div>
+    <br>
+    <br>
+    <p style="font-weight: 400;">Where <em>Prev</em> is the prevalence of disease, <em>M</em> the margin of error and
+      Z<sub><sup>&alpha;</sup>&frasl;<sub>2</sub></sub> represents the upper percentiles of standard normal distribution
+      for the &alpha;-level. The final sample size introducing the failure rate in sampling, <em>q</em>, is:</p>
+    <div class="exp" [mathjax]="[ expnsp2]">
+      \( {{ '{}' }} \)
+    </div>
+    <br *ngIf="show">
+    <br *ngIf="show">
+    <br *ngIf="show">
+  </div>
+
+
+
+  <div class="formula" *ngIf="showss">
+    <!-- <div class="exptxt">PPV(Estimated positive predicted value): </div> -->
+    <div class="exp" [mathjax]="[expppv]">
+      \( {{ '{}' }} \)
+    </div>
+
+    <br *ngIf="show">
+    <br *ngIf="show">
+    <br *ngIf="show">
+  </div>
+
+
+  <div class="formula" *ngIf="showss">
+    <!-- <div class="exptxt">NPV(Estimated negative predicted value): </div> -->
+    <div class="exp" [mathjax]="[expnpv]">
+      \( {{ '{}' }} \)
+    </div>
+
+    <br *ngIf="show">
+    <br *ngIf="show">
+    <br *ngIf="show">
+  </div>
+
+  <br>
+  <br>
+</div>
+
+
+
+
+
+<div class="referrence" *ngIf="show">
+
+  <p style="font-size: 1.5em; font-weight: 600 ;">References:</p>
+  <a style="color: aliceblue;text-decoration:none;" target="_blank"><cite>[1] Hess, A. S., et al. "Methods and
+      recommendations for
+      evaluating and reporting a new diagnostic test."
+      European journal of clinical microbiology & infectious diseases 31.9 (2012): 2111-2116. </cite></a>
+  <br>
+  <a style="color: aliceblue;text-decoration:none;" target="_blank"><cite>[2] Bartlett, II, J. E., et al.
+      "Organizational
+      research:
+      Determining appropriate sample size in survey
+      research appropriate sample size in survey research." Information technology, learning, and performance journal
+      19.1 (2001): 43. </cite></a>
+  <br>
+  <a style="color: aliceblue;text-decoration:none;" target="_blank"><cite>[3] Hajian-Tilaki, K. "Sample size estimation
+      in diagnostic
+      test studies of biomedical informatics." Journal
+      of biomedical informatics 48 (2014): 193-204. </cite></a>
+
+  <br>
+  <a style="color: aliceblue;text-decoration:none;" target="_blank"><cite>[4] Obuchowski, Nancy A. "Sample size
+      calculations in studies of test accuracy." Statistical Methods in Medical Research 7, no. 4 (1998):
+      371-392.</cite></a>
+  <br>
+  <br>
+  <br>
+
+
+</div>

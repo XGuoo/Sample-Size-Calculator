@@ -1,0 +1,76 @@
+<div class="intro">
+  <br>
+
+
+
+  <h2>Sample Size Calculator</h2>
+  <p>This sample size calculator identifies the required sample size for evaluating the accuracy of a diagnostic test.
+    Diagnostic accuracy
+    can be expressed as sensitivity, specificity, likelihood ratio (LR) or area under the ROC curve (AUC), and it
+    assesses the ability of
+    a diagnostic test to detect the target condition of interest. According to your study purpose, you can choose two
+    ways to estimate the
+    proper sample size needed. You can either be interested in estimating the accuracy of a diagnostic test, or testing
+    a hypothesis to compare
+    the accuracy of a diagnostic test with another test, or with a specific value. The goal of this calculator is to
+    enable you to calculate
+    the required sample size base on any of these parameters.You can select <b>‘Estimating accuracy of a single test’</b>
+    if you want to meet prespecified
+    accuracy goals, e.g., you want to recruit a certain number of subjects to achieve an expected level of sensitivity.
+    You can select <b>‘Compare
+      two values of accuracy’</b>if you either want to <u>compare the accuracy of two diagnostic tests</u> or <u>compare
+      your test with a minimally acceptable
+      prespecified accuracy</u> .</p>
+
+  <br>
+
+  <h3> Choose the purpose of your study:</h3>
+  <br>
+
+
+
+  <div class="modeselection">
+
+    <div class="buttons">
+      <button type="button" (click)="selecss()" class="samplesize" value='ss'>Estimate accuracy of a single
+        test</button>
+    </div>
+    <div class="buttons">
+      <button type="button" (click)="seleccp()" class="hypothesistest" value='cp'>Compare two values of
+        accuracy</button>
+    </div>
+
+
+  </div>
+
+  <div class="introdetail" *ngIf="cp">
+    Test accuracy of a single test or compare accuracies of two tests.
+
+    Testing the accuracy of a single test or comparing two different tests accuracies implies testing a hypothesis. A
+    comparison of the accuracies of two tests refers to test the equivalence of the accuracies of two tests. In both
+    scenarios, the hope is to reject the hypothesis of equivalence and thus prove that the accuracies are different.
+    Testing the accuracy of a single test means studying the equivalence of your test to a predetermined level of
+    accuracy.
+
+    Here is a calculator that helps you in testing your hypothesis with a desired precision, i.e. confidence level,
+    and power. </div>
+
+  <div class="introdetail" *ngIf="ss">
+    Here you can determine the number of samples/subjects you need to recruit in order to define an expected level of
+    accuracy with a desired precision, i.e. confidence level, of your diagnostic test. </div>
+
+
+  <br>
+
+
+</div>
+<br>
+
+
+
+
+<!-- *ngIf="showss" -->
+
+<app-samplesize *ngIf="ss"></app-samplesize>
+
+<app-hypothesistest *ngIf="cp"></app-hypothesistest>
