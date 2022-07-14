@@ -1,5 +1,5 @@
 # Sample-Size-Calculator 
-
+[![DOI](https://zenodo.org/badge/367076840.svg)](https://zenodo.org/badge/latestdoi/367076840)
 This project was based on Angular and developed by "Power-team". This project provides several frequently-used functions for calculating sample size and evaluating the accuracy of diagnostic tests.
 
 An online sample was provided [here](https://power-app2.web.app/).
